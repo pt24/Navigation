@@ -1,0 +1,16 @@
+{
+	"name": "esports/navigation",
+	"description": "Control pro Nette Framework usnadňující tvorbu menu a drobečkové navigace",
+	"keywords": ["navigation", "nette"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Jan Marek",
+			"email": "mail@janmarek.net"
+		}
+	],
+	"require": {
+		"php": ">=5.3.1",
+		"nette/nette": "~2.0@rc"
+	}
+}

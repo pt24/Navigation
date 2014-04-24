@@ -7,12 +7,11 @@
  * @license MIT
  */
 
-namespace Navigation;
+namespace Esports\Navigation;
 
 use Nette\Application\UI\Control;
 
-class Navigation extends Control
-{
+class Navigation extends Control {
 
 	/** @var NavigationNode */
 	private $homepage;
@@ -33,8 +32,7 @@ class Navigation extends Control
 	 * Set node as current
 	 * @param NavigationNode $node
 	 */
-	public function setCurrentNode(NavigationNode $node)
-	{
+	public function setCurrentNode(NavigationNode $node) {
 		if (isset($this->current)) {
 			$this->current->isCurrent = false;
 		}
@@ -48,8 +46,7 @@ class Navigation extends Control
 	 * @param string $url
 	 * @return NavigationNode
 	 */
-	public function add($label, $url)
-	{
+	public function add($label, $url) {
 		return $this->getComponent('homepage')->add($label, $url);
 	}
 
@@ -59,8 +56,7 @@ class Navigation extends Control
 	 * @param string $url
 	 * @return NavigationNode
 	 */
-	public function setupHomepage($label, $url)
-	{
+	public function setupHomepage($label, $url) {
 		$homepage = $this->getComponent('homepage');
 		$homepage->label = $label;
 		$homepage->url = $url;
@@ -72,8 +68,7 @@ class Navigation extends Control
 	 * Homepage factory
 	 * @param string $name
 	 */
-	protected function createComponentHomepage($name)
-	{
+	protected function createComponentHomepage($name) {
 		new NavigationNode($this, $name);
 	}
 
@@ -83,10 +78,9 @@ class Navigation extends Control
 	 * @param NavigationNode $base
 	 * @param bool $renderHomepage
 	 */
-	public function renderMenu($renderChildren = TRUE, $base = NULL, $renderHomepage = TRUE)
-	{
+	public function renderMenu($renderChildren = TRUE, $base = NULL, $renderHomepage = TRUE) {
 		$template = $this->createTemplate()
-			->setFile($this->menuTemplate ?: __DIR__ . '/menu.phtml');
+				->setFile($this->menuTemplate ? : __DIR__ . '/menu.latte');
 		$template->homepage = $base ? $base : $this->getComponent('homepage');
 		$template->useHomepage = $this->useHomepage && $renderHomepage;
 		$template->renderChildren = $renderChildren;
@@ -97,24 +91,21 @@ class Navigation extends Control
 	/**
 	 * Render full menu
 	 */
-	public function render()
-	{
+	public function render() {
 		$this->renderMenu();
 	}
 
 	/**
 	 * Render main menu
 	 */
-	public function renderMainMenu()
-	{
+	public function renderMainMenu() {
 		$this->renderMenu(FALSE);
 	}
 
 	/**
 	 * Render breadcrumbs
 	 */
-	public function renderBreadcrumbs()
-	{
+	public function renderBreadcrumbs() {
 		if (empty($this->current)) {
 			return;
 		}
@@ -133,7 +124,7 @@ class Navigation extends Control
 		}
 
 		$template = $this->createTemplate()
-			->setFile($this->breadcrumbsTemplate ?: __DIR__ . '/breadcrumbs.phtml');
+				->setFile($this->breadcrumbsTemplate ? : __DIR__ . '/breadcrumbs.latte');
 
 		$template->items = $items;
 		$template->render();
@@ -142,24 +133,21 @@ class Navigation extends Control
 	/**
 	 * @param string $breadcrumbsTemplate
 	 */
-	public function setBreadcrumbsTemplate($breadcrumbsTemplate)
-	{
+	public function setBreadcrumbsTemplate($breadcrumbsTemplate) {
 		$this->breadcrumbsTemplate = $breadcrumbsTemplate;
 	}
 
 	/**
 	 * @param string $menuTemplate
 	 */
-	public function setMenuTemplate($menuTemplate)
-	{
+	public function setMenuTemplate($menuTemplate) {
 		$this->menuTemplate = $menuTemplate;
 	}
 
 	/**
-	 * @return \Navigation\NavigationNode
+	 * @return NavigationNode
 	 */
-	public function getCurrentNode()
-	{
+	public function getCurrentNode() {
 		return $this->current;
 	}
 

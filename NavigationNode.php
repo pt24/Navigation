@@ -7,12 +7,11 @@
  * @license MIT
  */
 
-namespace Navigation;
+namespace Esports\Navigation;
 
 use Nette\ComponentModel\Container;
 
-class NavigationNode extends Container
-{
+class NavigationNode extends Container {
 
 	/** @var string */
 	public $label;
@@ -31,7 +30,7 @@ class NavigationNode extends Container
 	 * @return NavigationNode
 	 */
 	public function add($label, $url) {
-		$navigationNode = new self;
+		$navigationNode = new static;
 		$navigationNode->label = $label;
 		$navigationNode->url = $url;
 
@@ -44,14 +43,13 @@ class NavigationNode extends Container
 	/**
 	 * Set node as current
 	 * @param bool $current
-	 * @return \Navigation\NavigationNode
+	 * @return NavigationNode
 	 */
-	public function setCurrent($current)
-	{
+	public function setCurrent($current) {
 		$this->isCurrent = $current;
 
 		if ($current) {
-			$this->lookup('Navigation\Navigation')->setCurrentNode($this);
+			$this->lookup('Esports\Navigation\Navigation')->setCurrentNode($this);
 		}
 
 		return $this;
